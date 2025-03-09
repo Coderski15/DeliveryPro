@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FaWeightHanging, FaBox, FaMapMarkerAlt, FaTruck, FaDollarSign } from "react-icons/fa";
+import { FaWeightHanging, FaBox, FaMapMarkerAlt, FaTruck } from "react-icons/fa";
 
 export default function Pricing() {
     const [weight, setWeight] = useState(1);
@@ -9,13 +9,13 @@ export default function Pricing() {
     const [cost, setCost] = useState(null);
 
     const deliveryOptions = [
-        { type: "Standard", pricePerKg: 5, icon: <FaTruck className="text-blue-500" size={24} /> },
-        { type: "Express", pricePerKg: 10, icon: <FaTruck className="text-red-500" size={24} /> },
+        { type: "Standard", pricePerKg: 400, icon: <FaTruck className="text-blue-500" size={24} /> }, // ₹400/kg
+        { type: "Express", pricePerKg: 800, icon: <FaTruck className="text-red-500" size={24} /> },   // ₹800/kg
     ];
 
     const calculateCost = () => {
         if (!destination) return;
-        const basePrice = size === "small" ? 2 : size === "medium" ? 5 : 10;
+        const basePrice = size === "small" ? 200 : size === "medium" ? 500 : 1000; // Base price in ₹
         const prices = deliveryOptions.map(option => ({
             type: option.type,
             price: basePrice + weight * option.pricePerKg,
@@ -78,7 +78,7 @@ export default function Pricing() {
                                 {deliveryOptions[index].icon}
                                 <h3 className="text-xl font-semibold mt-2">{option.type} Delivery</h3>
                                 <p className="text-lg font-bold text-green-600 flex items-center gap-2">
-                                    <FaDollarSign /> {option.price.toFixed(2)}
+                                    ₹{option.price.toLocaleString("en-IN")}
                                 </p>
                             </motion.div>
                         ))}
