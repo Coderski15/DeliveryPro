@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"; 
 import { motion } from "framer-motion";
-import { FaMapMarkerAlt, FaBox, FaTruck, FaDollarSign, FaClock, FaCheckCircle, FaWeightHanging } from "react-icons/fa";
+import { FaMapMarkerAlt, FaBox, FaTruck, FaClock, FaCheckCircle, FaWeightHanging } from "react-icons/fa";
 import client from "../../lib/axios"
 
 const OnlineBooking = () => {
@@ -13,8 +13,8 @@ const OnlineBooking = () => {
     const [isBooked, setIsBooked] = useState(false);
 
     const deliveryOptions = {
-        Standard: { pricePerKg: 5 },
-        Express: { pricePerKg: 10 },
+        Standard: { pricePerKg: 400 },  // ₹400/kg
+        Express: { pricePerKg: 800 },   // ₹800/kg
     };
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const OnlineBooking = () => {
 
     const calculateCost = () => {
         if (!deliveryAddress) return;
-        const basePrice = size === "small" ? 2 : size === "medium" ? 5 : 10;
+        const basePrice = size === "small" ? 200 : size === "medium" ? 500 : 1000; // Base price in ₹
         const price = basePrice + weight * deliveryOptions[deliveryType].pricePerKg;
         setCost(price);
     };
@@ -83,7 +83,7 @@ const OnlineBooking = () => {
                         <div className="p-2 bg-gray-100 rounded mt-2 flex justify-between items-center">
                             <span>{deliveryType} Delivery</span>
                             <span className="text-green-600 font-bold flex items-center">
-                                <FaDollarSign className="mr-1" /> {cost.toFixed(2)}
+                                ₹{cost.toLocaleString("en-IN")}
                             </span>
                         </div>
                     </div>
