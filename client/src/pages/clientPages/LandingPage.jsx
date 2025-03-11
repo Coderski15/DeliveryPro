@@ -66,7 +66,7 @@ export default function LandingPage() {
             <section className="py-16 flex flex-wrap justify-center gap-8">
                 <ServiceImage src="/assets/images/whoweare.jpeg" alt="Courier Team" />
                 <ServiceImage src="/assets/images/Dilevercarefullly.jpeg" alt="Delivery Process" />
-                <ServiceImage src="/assets/images/Globe.png" alt="Global Network" />
+                <ServiceImage src="/assets/images/Landpageimg3.jpeg" alt="Global Network" />
             </section>
         </div>
     );
