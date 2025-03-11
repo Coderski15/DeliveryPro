@@ -21,7 +21,10 @@ export default function LandingPage() {
                             >Fast & Reliable Courier Services</motion.span>
                         </h1>
                         <p className="mb-6 text-lg">Delivering with speed, safety, and efficiency.</p>
-                        <button className="bg-white text-blue-600 font-bold py-3 px-6 rounded-md shadow-md hover:bg-gray-100 flex items-center gap-2 transition">
+                        <button onClick={() => {
+                            const token = localStorage.getItem("authToken");
+                            window.location.href = token ? "/dashboard" : "/login";
+                        }} className="bg-white text-blue-600 font-bold py-3 px-6 rounded-md shadow-md hover:bg-gray-100 flex items-center gap-2 transition">
                             Book Now <FaArrowRight />
                         </button>
                     </motion.div>
@@ -51,7 +54,10 @@ export default function LandingPage() {
             <section className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-10 text-center justify-items-center">
                 <h2 className="text-3xl font-bold">Ready to Ship?</h2>
                 <p className="mt-2 text-lg">Sign up today and experience hassle-free delivery.</p>
-                <button className="mt-4 bg-white text-blue-600 px-6 py-2 rounded-lg hover:bg-gray-200 transition flex items-center gap-2">
+                <button onClick={() => {
+                    const token = localStorage.getItem("authToken");
+                    window.location.href = token ? "/dashboard" : "/login";
+                }} className="mt-4 bg-white text-blue-600 px-6 py-2 rounded-lg hover:bg-gray-200 transition flex items-center gap-2">
                     Get Started <FaArrowRight />
                 </button>
             </section>
