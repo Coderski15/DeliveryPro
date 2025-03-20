@@ -12,7 +12,7 @@ const DeliveryDashboard = () => {
 
     const menuItems = [
         { key: "booking", label: "Online Booking", icon: <FaBox /> },
-        { key: "payment", label: "Payment", icon: <FaCreditCard /> },
+        // { key: "payment", label: "Payment", icon: <FaCreditCard /> },
         { key: "tracking", label: "Tracking", icon: <FaMapMarkerAlt /> },
         { key: "notifications", label: "Notifications", icon: <FaBell /> },
     ];
