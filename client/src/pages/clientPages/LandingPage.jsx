@@ -1,5 +1,6 @@
 import { FaShippingFast, FaMapMarkerAlt, FaMoneyCheckAlt, FaHeadset, FaArrowRight } from "react-icons/fa";
 import { motion } from "framer-motion";
+import BookNow from './Booknow';
 
 export default function LandingPage() {
     return (
@@ -27,6 +28,32 @@ export default function LandingPage() {
                         }} className="bg-white text-blue-600 font-bold py-3 px-6 rounded-md shadow-md hover:bg-gray-100 flex items-center gap-2 transition">
                             Book Now <FaArrowRight />
                         </button>
+                        {/* <button
+                            onClick={() => {
+                                const token = localStorage.getItem("authToken");
+                                const userRole = localStorage.getItem("userRole");
+
+                                if (!token) {
+                                    window.location.href = "/login";
+                                } else {
+                                    switch (userRole) {
+                                        case "admin":
+                                            window.location.href = "/client/src/pages/adminPages/AdminDashboard";
+                                            break;
+                                        case "user":
+                                            window.location.href = "/client/src/pages/customer/CustomerDashboard";
+                                            break;
+                                        case "delivery":
+                                            window.location.href = "/client/src/pages/delivery/DeliveryDashboard";
+                                            break;
+                                        default:
+                                            window.location.href = "/client/src/pages/clientPages/LandingPage";
+                                    }
+                                }
+                            }}
+                            className="bg-white text-blue-600 font-bold py-3 px-6 rounded-md shadow-md hover:bg-gray-100 flex items-center gap-2 transition"
+                        ><BookNow /> <FaArrowRight />
+                        </button> */}
                     </motion.div>
                     <motion.div
                         className="flex-1 mt-10 md:mt-0 flex justify-end"
