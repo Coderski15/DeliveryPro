@@ -1,6 +1,9 @@
 import { FaShippingFast, FaMapMarkerAlt, FaMoneyCheckAlt, FaHeadset, FaArrowRight } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { selectUserRole } from "../../redux/features/auth/authSlice";
+import { useSelector } from "react-redux";
 export default function LandingPage() {
+    const role = useSelector(selectUserRole);
     return (
         <div className="bg-gray-100 min-h-screen">
             {/* Hero Section */}
@@ -23,6 +26,23 @@ export default function LandingPage() {
                         <button onClick={() => {
                             const token = localStorage.getItem("authToken");
                             window.location.href = token ? "/dashboard" : "/login";
+                            if (!token) {
+                                window.location.href = "/login";
+                            } else {
+                                switch (role) {
+                                    case "admin":
+                                        window.location.href = "/admindashboard";
+                                        break;
+                                    case "customer":
+                                        window.location.href = "/customer-dashboard";
+                                        break;
+                                    case "delivery":
+                                        window.location.href = "/delivery-dashboard";
+                                        break;
+                                    default:
+                                        window.location.href = "/";
+                                }
+                            }
                         }} className="bg-white text-blue-600 font-bold py-3 px-6 rounded-md shadow-md hover:bg-gray-100 flex items-center gap-2 transition">
                             Book Now <FaArrowRight />
                         </button>

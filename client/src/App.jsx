@@ -58,12 +58,48 @@ const App = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar user={user.name} />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route path="/" element={role ? (
+          role === "delivery" ? (
+            <Navigate to="/delivery-dashboard" />
+          ) : role === "customer" ? (
+            <Navigate to="/customer-dashboard" />
+          ) : isAdmin ? (
+            <Navigate to="/admindashboard" />
+          ) : null
+        ) :
+          (
+            <LandingPage />
+
+          )} />
         <Route path="/services" element={<Services />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Registration />} />
+        <Route path="/login" element={role ? (
+          role === "delivery" ? (
+            <Navigate to="/delivery-dashboard" />
+          ) : role === "customer" ? (
+            <Navigate to="/customer-dashboard" />
+          ) : isAdmin ? (
+            <Navigate to="/admindashboard" />
+          ) : null
+        ) :
+          (
+            <Login />
+
+          )} />
+        <Route path="/register" element={role ? (
+          role === "delivery" ? (
+            <Navigate to="/delivery-dashboard" />
+          ) : role === "customer" ? (
+            <Navigate to="/customer-dashboard" />
+          ) : isAdmin ? (
+            <Navigate to="/admindashboard" />
+          ) : null
+        ) :
+          (
+            <Registration />
+
+          )} />
         <Route path="/admindashboard" element={isAdmin ? <AdminDashboard /> : <Navigate to="/" />} />
         <Route path="/customer-dashboard" element={role === 'customer' ? <CustomerDashboard /> : <Navigate to="/" />} />
         <Route path="/delivery-dashboard" element={role === 'delivery' ? <DeliveryDashboard /> : <Navigate to="/" />} />
