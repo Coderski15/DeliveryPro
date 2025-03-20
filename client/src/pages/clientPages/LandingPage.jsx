@@ -1,7 +1,5 @@
 import { FaShippingFast, FaMapMarkerAlt, FaMoneyCheckAlt, FaHeadset, FaArrowRight } from "react-icons/fa";
 import { motion } from "framer-motion";
-import BookNow from './Booknow';
-
 export default function LandingPage() {
     return (
         <div className="bg-gray-100 min-h-screen">
