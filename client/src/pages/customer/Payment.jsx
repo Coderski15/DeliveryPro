@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import client from "../../lib/axios";
 
 const Payment = () => {
     const [couriers, setCouriers] = useState([]);
-    const navigate = useNavigate();
+    const [selectedCourier, setSelectedCourier] = useState(null);
 
     useEffect(() => {
         fetchCouriers();
@@ -22,8 +21,12 @@ const Payment = () => {
         }
     };
 
-    const handlePayment = (orderId, amount) => {
-        navigate("/payment", { state: { orderId, amount } });
+    const handlePayment = (courier) => {
+        setSelectedCourier(courier);
+    };
+
+    const closeModal = () => {
+        setSelectedCourier(null);
     };
 
     return (
@@ -39,7 +42,7 @@ const Payment = () => {
                         <p>Status: {courier.status}</p>
                         {!courier.isPaid && (
                             <button
-                                onClick={() => handlePayment(courier._id, courier.cost)}
+                                onClick={() => handlePayment(courier)}
                                 className="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
                             >
                                 Pay Now
@@ -48,6 +51,38 @@ const Payment = () => {
                     </div>
                 ))}
             </div>
+
+            {/* Payment Modal */}
+            {selectedCourier && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg relative">
+                        <button
+                            onClick={closeModal}
+                            className="absolute top-2 right-2 text-gray-600 hover:text-gray-800 text-2xl"
+                        >
+                            &times;
+                        </button>
+                        <h3 className="text-xl font-semibold mb-4 text-center">Complete Your Payment</h3>
+                        <p><strong>Order ID:</strong> {selectedCourier._id}</p>
+                        <p><strong>Amount:</strong> ₹{selectedCourier.cost}</p>
+                        <p><strong>Delivery:</strong> {selectedCourier.deliveryType}</p>
+                        <p><strong>From:</strong> {selectedCourier.pickupAddress}</p>
+                        <p><strong>To:</strong> {selectedCourier.deliveryAddress}</p>
+
+                        {/* Payment QR Image */}
+                        <div className="mt-4 flex justify-center">
+                            <img
+                                src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=your-upi-id@bank&pn=DeliveryPro&am=${selectedCourier.cost}`}
+                                alt="QR Code for Payment"
+                                className="w-40 h-40"
+                            />
+                        </div>
+                        <p className="text-sm text-center text-gray-600 mt-2">
+                            Scan this QR code with any UPI app to pay.
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
