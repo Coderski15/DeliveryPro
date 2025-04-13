@@ -35,7 +35,7 @@ const Payment = () => {
                         <h3 className="font-semibold">{courier.deliveryType} Delivery</h3>
                         <p>Pickup: {courier.pickupAddress}</p>
                         <p>Delivery: {courier.deliveryAddress}</p>
-                        <p>Cost: ${courier.cost}</p>
+                        <p>Cost: ₹{courier.cost}</p>
                         <p>Status: {courier.status}</p>
                         {!courier.isPaid && (
                             <button
