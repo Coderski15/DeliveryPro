@@ -19,38 +19,53 @@ export default function Contact() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1 }}
             >
-                Have questions ? Reach out to us, and our team will be happy to help.
+                Have questions? Reach out to us, and our team will be happy to help.
             </motion.p>
 
-            {/* Contact Information */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 w-full max-w-5xl">
-                <ContactCard icon={<FaPhone />} title="Phone" detail="+91 8169282753" />
-                <ContactCard icon={<FaEnvelope />} title="Email" detail="support@deliverypro.com" />
-                <ContactCard icon={<FaMapMarkerAlt />} title="Address" detail="Garden, Borivali, India" />
-                <ContactCard icon={<FaClock />} title="Working Hours" detail="Mon - Fri: 9 AM - 6 PM" />
-            </div>
+            {/* Contact Section */}
+            <div className="flex flex-col lg:flex-row gap-12 w-full max-w-6xl">
+                {/* Contact Info Cards - Left Side */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 flex-1">
+                    <ContactCard icon={<FaPhone />} title="Phone" detail="+91 8169282753" />
+                    <ContactCard icon={<FaEnvelope />} title="Email" detail="support@deliverypro.com" />
+                    <ContactCard icon={<FaMapMarkerAlt />} title="Address" detail="Garden, Borivali, India" />
+                    <ContactCard icon={<FaClock />} title="Working Hours" detail="Mon - Fri: 9 AM - 6 PM" />
+                </div>
 
-            {/* Contact Form */}
-            <motion.div
-                className="bg-white shadow-lg rounded-lg p-8 mt-12 max-w-2xl w-full"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.8 }}
-            >
-                <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">Send Us a Message</h2>
-                <form className="space-y-4">
-                    <input type="text" placeholder="Your Name" className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    <input type="email" placeholder="Your Email" className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    <textarea placeholder="Your Message" rows="5" className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                    <motion.button
-                        className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                    >
-                        Send Message
-                    </motion.button>
-                </form>
-            </motion.div>
+                {/* Contact Form - Right Side */}
+                <motion.div
+                    className="bg-white shadow-lg rounded-lg p-8 w-full lg:w-1/2"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">Send Us a Message</h2>
+                    <form className="space-y-4">
+                        <input
+                            type="text"
+                            placeholder="Your Name"
+                            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        <input
+                            type="email"
+                            placeholder="Your Email"
+                            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        <textarea
+                            placeholder="Your Message"
+                            rows="5"
+                            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        ></textarea>
+                        <motion.button
+                            className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            Send Message
+                        </motion.button>
+                    </form>
+                </motion.div>
+            </div>
         </div>
     );
 }
