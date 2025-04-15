@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -27,6 +27,7 @@ const App = () => {
   const user = useSelector(selectUser);
   const isAdmin = useSelector(selectUserIsAdmin);
   const role = useSelector(selectUserRole);
+  const navigate = useNavigate(); // <-- initialize here
   // Fetch token and authenticate user on app load
   useEffect(() => {
     const checkAuth = async () => {
@@ -37,8 +38,19 @@ const App = () => {
           const response = await client.get("/auth/verify-user", {
             headers: { Authorization: `Bearer ${token}` },
           });
+
           if (response.data.success && response.data.user) {
-            dispatch(login(response.data.user));
+            const userData = response.data.user;
+            dispatch(login(userData));
+
+            // 🔁 Navigate based on role immediately
+            if (userData.role === "delivery") {
+              navigate("/delivery-dashboard");
+            } else if (userData.role === "customer") {
+              navigate("/customer-dashboard");
+            } else if (userData.isAdmin) {
+              navigate("/admindashboard");
+            }
           } else {
             dispatch(setError("Authentication failed"));
           }
@@ -52,7 +64,7 @@ const App = () => {
     };
 
     checkAuth();
-  }, [dispatch]);
+  }, [dispatch, navigate]);
 
   return (
     <div className="min-h-screen flex flex-col">

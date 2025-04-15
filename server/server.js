@@ -46,7 +46,7 @@ app.get("", (req, res) => {
 app.use("/api/v1/auth", userRoutes)
 app.use("/api/v1/admin", adminRoutes)
 app.use("/api/v1/courier", courierRoutes);
-app.use("/api/v1/payment", paymentRoutes);
+app.use("/api/v1/payments", paymentRoutes);
 
 // PORT
 const PORT = process.env.PORT || 8080;

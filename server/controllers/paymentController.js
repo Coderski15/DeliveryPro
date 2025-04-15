@@ -4,7 +4,7 @@ const Courier = require("../models/Courier");
 // 📌 Create a new payment
 const createPayment = async (req, res) => {
     try {
-        const { orderId, amount, paymentMethod, transactionId } = req.body;
+        const { orderId, amount } = req.body;
         const userId = req.user; // Extracted from JWT
 
         // Check if order exists
@@ -17,8 +17,6 @@ const createPayment = async (req, res) => {
             user: userId,
             order: orderId,
             amount,
-            paymentMethod,
-            transactionId,
             status: "pending"
         });
 

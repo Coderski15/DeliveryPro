@@ -4,6 +4,7 @@ import client from "../../lib/axios";
 const Payment = () => {
     const [couriers, setCouriers] = useState([]);
     const [selectedCourier, setSelectedCourier] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         fetchCouriers();
@@ -21,8 +22,33 @@ const Payment = () => {
         }
     };
 
-    const handlePayment = (courier) => {
-        setSelectedCourier(courier);
+    const handlePayment = async (courier) => {
+        try {
+            setLoading(true);
+            const token = localStorage.getItem("authToken");
+
+            const response = await client.post(
+                "/payments/",
+                {
+                    orderId: courier._id,
+                    amount: courier.cost,
+                },
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+
+            if (response.status === 201) {
+                setSelectedCourier(courier);
+            } else {
+                alert("Payment initiation failed");
+            }
+        } catch (error) {
+            console.error("Payment error:", error);
+            alert("Something went wrong while processing payment.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     const closeModal = () => {
@@ -40,19 +66,21 @@ const Payment = () => {
                         <p>Delivery: {courier.deliveryAddress}</p>
                         <p>Cost: ₹{courier.cost}</p>
                         <p>Status: {courier.status}</p>
-                        {!courier.isPaid && (
+                        {courier.status !== "completed" && !courier.isPaid && (
                             <button
                                 onClick={() => handlePayment(courier)}
-                                className="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+                                disabled={loading}
+                                className="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
                             >
-                                Pay Now
+                                {loading ? "Processing..." : "Pay Now"}
                             </button>
                         )}
+
                     </div>
                 ))}
             </div>
 
-            {/* Payment Modal */}
+            {/* QR Code Payment Modal */}
             {selectedCourier && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-lg relative">
@@ -69,7 +97,7 @@ const Payment = () => {
                         <p><strong>From:</strong> {selectedCourier.pickupAddress}</p>
                         <p><strong>To:</strong> {selectedCourier.deliveryAddress}</p>
 
-                        {/* Payment QR Image */}
+                        {/* Payment QR */}
                         <div className="mt-4 flex justify-center">
                             <img
                                 src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=your-upi-id@bank&pn=DeliveryPro&am=${selectedCourier.cost}`}
@@ -77,9 +105,7 @@ const Payment = () => {
                                 className="w-40 h-40"
                             />
                         </div>
-                        <p className="text-sm text-center text-gray-600 mt-2">
-                            Scan this QR code with any UPI app to pay.
-                        </p>
+                        <p className="text-sm text-center text-gray-600 mt-2">Scan this QR code with any UPI app to pay.</p>
                     </div>
                 </div>
             )}
