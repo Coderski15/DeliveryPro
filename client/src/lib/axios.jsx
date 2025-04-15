@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const client = axios.create({
-    baseURL: 'https://deliverypro-backend.onrender.com', // Replace with your API URL
+    baseURL: 'http://localhost:8080/api/v1', // Replace with your API URL
 });
 
 export default client;
